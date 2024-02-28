@@ -74,7 +74,9 @@ export async function fetchCommunityPosts(id: string) {
   try {
     connectToDB();
 
-    const communityPosts = await Community.findById(id).populate({
+    console.log("theid is", id)
+
+    const communityPosts = await Community.findOne({ id }).populate({
       path: "threads",
       model: Thread,
       populate: [
@@ -94,6 +96,9 @@ export async function fetchCommunityPosts(id: string) {
         },
       ],
     });
+
+    console.log("community posts are", communityPosts)
+
 
     return communityPosts;
   } catch (error) {

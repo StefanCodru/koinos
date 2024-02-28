@@ -14,15 +14,16 @@ import {
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
 import * as z from "zod"
-import { updateUser } from '@/lib/actions/user.actions'
 import { usePathname, useRouter } from 'next/navigation'
 import { ThreadValidation } from '@/lib/validations/thread'
 import { createThread } from '@/lib/actions/thread.actions'
+import { useOrganization } from '@clerk/nextjs'
 
 export default function PostThread({ userId }: { userId: string }) {
 
    const router = useRouter()
    const pathname = usePathname()
+   const { organization } = useOrganization()
 
    // Forces validation for form and also provides default values
    const form = useForm({
@@ -35,12 +36,15 @@ export default function PostThread({ userId }: { userId: string }) {
 
    // When form is submitted
    async function onSubmit(values: z.infer<typeof ThreadValidation>) {
-      await createThread(
-         values.thread,
-         userId,
-         null,
-         pathname
-      )
+
+      console.log("community organization: ", organization)
+
+      await createThread({
+         text: values.thread,
+         author: userId,
+         communityId: organization ? organization.id : null,
+         path: pathname
+      })
 
       router.push("/")
    }

@@ -100,14 +100,14 @@ export default function AccountProfile({user, btnTitle}: Props) {
             
         }
 
-        await updateUser(
-            user.id,
-            values.username,
-            values.name,
-            values.profile_photo,
-            values.bio,
-            pathname
-        )
+        await updateUser({
+            userId: user.id,
+            bio: values.bio,
+            name: values.name,
+            path: pathname,
+            username: values.username,
+            image: values.profile_photo,
+        })
 
         if(pathname === "/profile/edit") {
             // Go to previous page after editing
