@@ -135,7 +135,7 @@ export default function AccountProfile({user, btnTitle}: Props) {
                                     width={96}
                                     height={96}
                                     priority
-                                    className="rounded-full object-contain"
+                                    className="rounded-full object-cover"
                                 />
                             ) : (
                                 <Image
@@ -143,7 +143,7 @@ export default function AccountProfile({user, btnTitle}: Props) {
                                     alt="profile photo"
                                     width={24}
                                     height={24}
-                                    className="object-contain"
+                                    className="object-cover"
                                 />
                             )}
                         </FormLabel>
