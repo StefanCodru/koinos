@@ -1,11 +1,13 @@
 import AccountProfile from "@/components/forms/AccountProfile"
+import { fetchUser } from "@/lib/actions/user.actions"
 import { currentUser } from "@clerk/nextjs"
 
 export default async function Page() {
     // Current user is imported from clerk, and we await it and get the user object whenever we want
     const user = await currentUser()
+    if(!user) return
 
-    const userInfo = {}
+    const userInfo = await fetchUser(user.id)
 
     const userData = {
         id: user?.id,
